@@ -5,7 +5,7 @@ Operation method collection for tree node(like operation array).
 - Install
 
 ```
-npm install --save operation-tree
+npm install --save operation-tree-node
 ```
 
 ## Methods
@@ -23,7 +23,7 @@ examples:
 - treeEach(data, callback, props) tree node each
 
 ```js
-import { treeEach } from "operation-tree";
+import { treeEach } from "operation-tree-node";
 
 const treeData1 = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
 treeEach(treeData1, (node, index, arr, parent) => {
@@ -40,7 +40,7 @@ treeEach(treeData2, console.log, { children: "child" });
 - treeMap(data, callback, props) tree node map
 
 ```js
-import { treeMap } from "operation-tree";
+import { treeMap } from "operation-tree-node";
 
 const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
 // tree node's +1
@@ -56,7 +56,7 @@ console.log(newData);
 - treeFilter(data, callback, props) tree node filter
 
 ```js
-import { treeFilter } from "operation-tree";
+import { treeFilter } from "operation-tree-node";
 
 const treeData = [
   { id: 1, name: "1", child: [{ id: 2, name: "2" }] },
@@ -72,7 +72,7 @@ console.log(result);
 - treeToFlatArray(data, callback, props) tree to flat array
 
 ```js
-import { treeToFlatArray } from "operation-tree";
+import { treeToFlatArray } from "operation-tree-node";
 
 const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
 const result = treeToFlatArray(treeData);
@@ -94,7 +94,7 @@ arguments:
 | props    | (same)                             | (same)                                             |
 
 ```js
-import { treeMerge } from "operation-tree";
+import { treeMerge } from "operation-tree-node";
 
 const treeData = [
   { id: 1, name: "1", type: "1", children: [{ id: 2, name: "2" }] },

@@ -1,5 +1,5 @@
 {
-  "name": "operation-tree",
+  "name": "operation-tree-node",
   "version": "1.0.0",
   "author": "yujinpan",
   "main": "dist/index.common.js",
@@ -59,12 +59,12 @@
     "last 2 versions"
   ],
   "bugs": {
-    "url": "https://github.com/yujinpan/operation-tree/issues"
+    "url": "https://github.com/yujinpan/operation-tree-node/issues"
   },
-  "homepage": "https://github.com/yujinpan/operation-tree#readme",
+  "homepage": "https://github.com/yujinpan/operation-tree-node#readme",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:yujinpan/operation-tree.git"
+    "url": "git+ssh://git@github.com:yujinpan/operation-tree-node.git"
   }
 }
