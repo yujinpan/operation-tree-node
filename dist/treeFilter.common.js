@@ -1,0 +1,6 @@
+/*!
+ * operation-tree v1.0.0
+ * (c) 2019-2019 yujinpan
+ * Released under the MIT License.
+ */
+"use strict";function e(e,r,t){return r in e?Object.defineProperty(e,r,{value:t,enumerable:!0,configurable:!0,writable:!0}):e[r]=t,e}function r(e,r){var t=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);r&&(n=n.filter((function(r){return Object.getOwnPropertyDescriptor(e,r).enumerable}))),t.push.apply(t,n)}return t}function t(e){return!(!Array.isArray(e)||!e.length)}var n={children:"children",parent:"parent"};module.exports=function(o,c){var i,u=(arguments.length>2&&void 0!==arguments[2]?arguments[2]:n).children;return function n(o,a){var f,p,l,b=[];return o.forEach((function(o,s,O){l=!1,f=function(t){for(var n=1;n<arguments.length;n++){var o=null!=arguments[n]?arguments[n]:{};n%2?r(o,!0).forEach((function(r){e(t,r,o[r])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(o)):r(o).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(o,e))}))}return t}({},o),t(i=o[u])&&(p=n(i,f),(l=t(p))?f[u]=p:delete f[u]),(c(o,s,O,a)||l)&&b.push(f)})),b}(o)};
