@@ -1,5 +1,9 @@
 import { checkValidArray } from './utils/checkValidArray';
-import { defaultTreeDataProps, TreeDataProps, TreeEachCallback } from './index';
+import {
+  defaultTreeDataProps,
+  TreeDataProps,
+  TreeEachCallback
+} from './common';
 
 /**
  * tree node filter

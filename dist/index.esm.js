@@ -8,6 +8,11 @@ function checkValidArray(data) {
   return !!(Array.isArray(data) && data.length);
 }
 
+var defaultTreeDataProps = {
+  children: 'children',
+  parent: 'parent'
+};
+
 /**
  * tree node each
  *
@@ -124,6 +129,26 @@ function _objectSpread2(target) {
   return target;
 }
 
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+}
+
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+
 /**
  * tree node filter
  *
@@ -196,9 +221,64 @@ function treeToFlatArray(data) {
   return result;
 }
 
-var defaultTreeDataProps = {
-  children: 'children',
-  parent: 'parent'
-};
+/**
+ * tree node merge(level)
+ *
+ * @example
+ *
+ * const treeData = [
+ *   { id: 1, name: '1', type: '1', children: [{ id: 2, name: '2' }] },
+ *   { id: 3, name: '3', type: '1', children: [{ id: 4, name: '4' }] }
+ * ];
+ * const result = treeMerge(
+ *   treeData,
+ *   (curr, next) => curr.type && curr.type === next.type
+ * );
+ * console.log(result)
+ * // [
+ * //   {
+ * //     id: 1,
+ * //     name: '1',
+ * //     type: '1',
+ * //     children: [{ id: 2, name: '2' }, { id: 4, name: '4' }]
+ * //   }
+ * // ]
+ */
 
-export { defaultTreeDataProps, treeEach, treeFilter, treeMap, treeToFlatArray };
+function treeEach$1(data, callback) {
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var propsChildren = props.children;
+  var children, commonChildren, newItem;
+  return function recursive(data) {
+    var result = [];
+    data.forEach(function (node) {
+      var common = result.find(function (item) {
+        return callback(item, node);
+      });
+      children = node[propsChildren];
+
+      if (common) {
+        commonChildren = common[propsChildren];
+
+        if (checkValidArray(children)) {
+          if (checkValidArray(commonChildren)) {
+            common[propsChildren] = recursive([].concat(_toConsumableArray(commonChildren), _toConsumableArray(children)));
+          } else {
+            common[propsChildren] = recursive(children);
+          }
+        }
+      } else {
+        newItem = _objectSpread2({}, node);
+
+        if (checkValidArray(children)) {
+          newItem[propsChildren] = _toConsumableArray(children);
+        }
+
+        result.push(newItem);
+      }
+    });
+    return result;
+  }(data);
+}
+
+export { treeEach, treeFilter, treeMap, treeEach$1 as treeMerge, treeToFlatArray };

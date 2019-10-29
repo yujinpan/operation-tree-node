@@ -12,11 +12,11 @@ npm install --save operation-tree
 
 common arguments:
 
-| name     | type                                       | description                                                                                    |
-| -------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------- |
-| data     | object[]                                   | example: [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }]                              |
-| callback | (node, index, arr, parent) => object\|void | node: tree node, index: parent children's index,<br> arr: parent children, parent: parent node |
-| props    | { children: string, parent: string }       | tree node's 'children' and 'parent' name                                                       |
+| name     | type                                      | description                                                                                    |
+| -------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| data     | object[]                                  | example: [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }]                              |
+| callback | (node, index, arr, parent) => object/void | node: tree node, index: parent children's index,<br> arr: parent children, parent: parent node |
+| props    | { children: string, parent: string }      | tree node's 'children' and 'parent' name                                                       |
 
 examples:
 
@@ -83,5 +83,36 @@ console.log(result);
 // ]
 ```
 
-- treeMerge（developing)
+- treeMerge（data, callback, props) tree node merge(level)
+
+arguments:
+
+| name     | type                               | description                                        |
+| -------- | ---------------------------------- | -------------------------------------------------- |
+| data     | (same)                             | (same)                                             |
+| callback | (currentNode, nextNode) => boolean | currentNode/nextNode: tree node, compare with them |
+| props    | (same)                             | (same)                                             |
+
+```js
+import { treeMerge } from "operation-tree";
+
+const treeData = [
+  { id: 1, name: "1", type: "1", children: [{ id: 2, name: "2" }] },
+  { id: 3, name: "3", type: "1", children: [{ id: 4, name: "4" }] }
+];
+const result = treeMerge(
+  treeData,
+  (curr, next) => curr.type && curr.type === next.type
+);
+console.log(result);
+// [
+//   {
+//     id: 1,
+//     name: '1',
+//     type: '1',
+//     children: [{ id: 2, name: '2' }, { id: 4, name: '4' }]
+//   }
+// ]
+```
+
 - treeSort（developing)

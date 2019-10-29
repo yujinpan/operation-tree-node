@@ -28,6 +28,10 @@ const multiOption = [
   {
     input: 'src/treeToFlatArray.ts',
     output: createOutputOptions('treeToFlatArray')
+  },
+  {
+    input: 'src/treeMerge.ts',
+    output: createOutputOptions('treeMerge')
   }
 ];
 

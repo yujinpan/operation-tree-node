@@ -1,5 +1,9 @@
 import treeEach from './treeEach';
-import { defaultTreeDataProps, TreeDataProps, TreeEachCallback } from './index';
+import {
+  defaultTreeDataProps,
+  TreeDataProps,
+  TreeEachCallback
+} from './common';
 
 /**
  * tree to flat array
