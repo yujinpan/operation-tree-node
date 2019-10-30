@@ -1,5 +1,5 @@
 /*!
- * operation-tree v1.0.0
+ * operation-tree-node v1.0.0
  * (c) 2019-2019 yujinpan
  * Released under the MIT License.
  */
@@ -245,7 +245,7 @@ function treeToFlatArray(data) {
  * // ]
  */
 
-function treeEach$1(data, callback) {
+function treeMerge(data, callback) {
   var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
   var propsChildren = props.children;
   var children, commonChildren, newItem;
@@ -281,4 +281,4 @@ function treeEach$1(data, callback) {
   }(data);
 }
 
-export { treeEach, treeFilter, treeMap, treeEach$1 as treeMerge, treeToFlatArray };
+export { treeEach, treeFilter, treeMap, treeMerge, treeToFlatArray };

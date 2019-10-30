@@ -22,7 +22,7 @@ import { TreeDataProps } from './common';
  * //   }
  * // ]
  */
-export default function treeEach<T>(
+export default function treeMerge<T>(
   data: T[],
   callback: (currentNode: T, nextNode: T) => boolean,
   props?: TreeDataProps
