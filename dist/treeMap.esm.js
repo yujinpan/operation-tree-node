@@ -19,6 +19,7 @@ var defaultTreeDataProps = {
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];
+ *
  * // tree node's +1
  * const newData = treeMap(treeData, (node) => ({
  *  id: node.id + 1,

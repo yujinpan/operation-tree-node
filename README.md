@@ -26,6 +26,7 @@ examples:
 import { treeEach } from "operation-tree-node";
 
 const treeData1 = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
+
 treeEach(treeData1, (node, index, arr, parent) => {
   console.log(node.name, index, arr, parent);
 });
@@ -43,6 +44,7 @@ treeEach(treeData2, console.log, { children: "child" });
 import { treeMap } from "operation-tree-node";
 
 const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
+
 // tree node's +1
 const newData = treeMap(treeData, node => ({
   id: node.id + 1,
@@ -62,6 +64,7 @@ const treeData = [
   { id: 1, name: "1", child: [{ id: 2, name: "2" }] },
   { id: 3, name: "3" }
 ];
+
 const result = treeFilter(treeData, node => node.id === 2, {
   children: "child"
 });
@@ -75,6 +78,7 @@ console.log(result);
 import { treeToFlatArray } from "operation-tree-node";
 
 const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
+
 const result = treeToFlatArray(treeData);
 console.log(result);
 // [
@@ -100,6 +104,7 @@ const treeData = [
   { id: 1, name: "1", type: "1", children: [{ id: 2, name: "2" }] },
   { id: 3, name: "3", type: "1", children: [{ id: 4, name: "4" }] }
 ];
+
 const result = treeMerge(
   treeData,
   (curr, next) => curr.type && curr.type === next.type
@@ -115,4 +120,36 @@ console.log(result);
 // ]
 ```
 
-- treeSort（developing)
+- treeSort(tree, callback, props) tree node sort(level)
+
+arguments:
+
+| name     | type                              | description                                        |
+| -------- | --------------------------------- | -------------------------------------------------- |
+| data     | (same)                            | (same)                                             |
+| callback | (currentNode, nextNode) => number | currentNode/nextNode: tree node, compare with them |
+| props    | (same)                            | (same)                                             |
+
+```js
+const treeData = [
+  {
+    id: 1,
+    name: "1",
+    children: [{ id: 3, name: "3" }, { id: 2, name: "2" }]
+  }
+];
+
+// 1,3,2 => 1,2,3
+const newData = treeSort(
+  treeData,
+  (currentNode, nextNode) => currentNode.id - nextNode.id
+);
+console.log(newData);
+// [
+//   {
+//     id: 1,
+//     name: '1',
+//     children: [{ id: 2, name: '2' }, { id: 3, name: '3' }]
+//   }
+// ]);
+```

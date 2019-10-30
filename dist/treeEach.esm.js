@@ -19,6 +19,7 @@ var defaultTreeDataProps = {
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];
+ *
  * treeEach(treeData, (node, index, arr, parent) => {
  *   console.log(node.name, index, arr, parent);
  * });

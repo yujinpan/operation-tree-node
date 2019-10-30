@@ -71,6 +71,7 @@ var defaultTreeDataProps = {
  *   { id: 1, name: '1', child: [{ id: 2, name: '2' }] },
  *   { id: 3, name: '3' }
  * ];
+ *
  * const result = treeFilter(treeData, (node) => node.id === 2, {
  *   children: 'child'
  * });

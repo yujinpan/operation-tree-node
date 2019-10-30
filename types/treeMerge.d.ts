@@ -8,6 +8,7 @@ import { TreeDataProps } from './common';
  *   { id: 1, name: '1', type: '1', children: [{ id: 2, name: '2' }] },
  *   { id: 3, name: '3', type: '1', children: [{ id: 4, name: '4' }] }
  * ];
+ *
  * const result = treeMerge(
  *   treeData,
  *   (curr, next) => curr.type && curr.type === next.type

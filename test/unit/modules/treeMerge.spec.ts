@@ -1,6 +1,6 @@
 import { treeMerge } from 'src';
 
-describe('[treeEach]:', () => {
+describe('[treeMerge]:', () => {
   it("merge tree node's type is same", () => {
     const treeData = [
       { id: 1, name: '1', type: '1', children: [{ id: 2, name: '2' }] },

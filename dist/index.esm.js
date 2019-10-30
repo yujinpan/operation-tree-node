@@ -19,6 +19,7 @@ var defaultTreeDataProps = {
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];
+ *
  * treeEach(treeData, (node, index, arr, parent) => {
  *   console.log(node.name, index, arr, parent);
  * });
@@ -52,6 +53,7 @@ function treeEach(data, callback) {
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];
+ *
  * // tree node's +1
  * const newData = treeMap(treeData, (node) => ({
  *  id: node.id + 1,
@@ -158,6 +160,7 @@ function _nonIterableSpread() {
  *   { id: 1, name: '1', child: [{ id: 2, name: '2' }] },
  *   { id: 3, name: '3' }
  * ];
+ *
  * const result = treeFilter(treeData, (node) => node.id === 2, {
  *   children: 'child'
  * });
@@ -201,6 +204,7 @@ function treeFilter(data, callback) {
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];
+ *
  * const result = treeToFlatArray(treeData);
  * console.log(result);
  * // [
@@ -230,6 +234,7 @@ function treeToFlatArray(data) {
  *   { id: 1, name: '1', type: '1', children: [{ id: 2, name: '2' }] },
  *   { id: 3, name: '3', type: '1', children: [{ id: 4, name: '4' }] }
  * ];
+ *
  * const result = treeMerge(
  *   treeData,
  *   (curr, next) => curr.type && curr.type === next.type
@@ -281,4 +286,49 @@ function treeMerge(data, callback) {
   }(data);
 }
 
-export { treeEach, treeFilter, treeMap, treeMerge, treeToFlatArray };
+/**
+ * tree node sort
+ *
+ * @example
+ *
+ * const treeData = [
+ *   {
+ *     id: 1,
+ *     name: '1',
+ *     children: [{ id: 3, name: '3' }, { id: 2, name: '2' }]
+ *   }
+ * ];
+ *
+ * // 1,3,2 => 1,2,3
+ * const newData = treeSort(
+ *   treeData,
+ *   (currentNode, nextNode) => currentNode.id - nextNode.id
+ * );
+ * console.log(newData);
+ * // [
+ * //   {
+ * //     id: 1,
+ * //     name: '1',
+ * //     children: [{ id: 2, name: '2' }, { id: 3, name: '3' }]
+ * //   }
+ * // ]);
+ */
+
+function treeSort(data, callback) {
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var propsChildren = props.children;
+  var children;
+  data = _toConsumableArray(data).sort(callback);
+  return treeMap(data, function (node) {
+    children = node[propsChildren];
+    node = _objectSpread2({}, node);
+
+    if (checkValidArray(children)) {
+      node[propsChildren] = _toConsumableArray(node[propsChildren]).sort(callback);
+    }
+
+    return node;
+  }, props);
+}
+
+export { treeEach, treeFilter, treeMap, treeMerge, treeSort, treeToFlatArray };

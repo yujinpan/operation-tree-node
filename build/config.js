@@ -32,6 +32,10 @@ const multiOption = [
   {
     input: 'src/treeMerge.ts',
     output: createOutputOptions('treeMerge')
+  },
+  {
+    input: 'src/treeSort.ts',
+    output: createOutputOptions('treeSort')
   }
 ];
 

@@ -72,75 +72,94 @@ function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance");
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function checkValidArray(data) {
-  return !!(Array.isArray(data) && data.length);
-}
-
 var defaultTreeDataProps = {
   children: 'children',
   parent: 'parent'
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function checkValidArray(data) {
+  return !!(Array.isArray(data) && data.length);
+}
+
 /**
- * tree node merge(level)
+ * tree node map
+ *
+ * @example
+ *
+ * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];
+ *
+ * // tree node's +1
+ * const newData = treeMap(treeData, (node) => ({
+ *  id: node.id + 1,
+ *  name: node.name,
+ *  ...(node.children ? { children: node.children } : {})
+ * }));
+ * console.log(newData);
+ * // [{ id: 2, name: '1', children: [{ id: 3, name: '2' }] }]
+ */
+
+function treeMap(data, callback) {
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var propsChildren = props.children;
+  var children;
+  return function recursive(data, parent) {
+    return data.map(function (node, index, arr) {
+      var newItem = callback(node, index, arr, parent);
+      children = newItem[propsChildren];
+
+      if (checkValidArray(children)) {
+        newItem[propsChildren] = recursive(children, newItem);
+      }
+
+      return newItem;
+    });
+  }(data);
+}
+
+/**
+ * tree node sort
  *
  * @example
  *
  * const treeData = [
- *   { id: 1, name: '1', type: '1', children: [{ id: 2, name: '2' }] },
- *   { id: 3, name: '3', type: '1', children: [{ id: 4, name: '4' }] }
+ *   {
+ *     id: 1,
+ *     name: '1',
+ *     children: [{ id: 3, name: '3' }, { id: 2, name: '2' }]
+ *   }
  * ];
  *
- * const result = treeMerge(
+ * // 1,3,2 => 1,2,3
+ * const newData = treeSort(
  *   treeData,
- *   (curr, next) => curr.type && curr.type === next.type
+ *   (currentNode, nextNode) => currentNode.id - nextNode.id
  * );
- * console.log(result)
+ * console.log(newData);
  * // [
  * //   {
  * //     id: 1,
  * //     name: '1',
- * //     type: '1',
- * //     children: [{ id: 2, name: '2' }, { id: 4, name: '4' }]
+ * //     children: [{ id: 2, name: '2' }, { id: 3, name: '3' }]
  * //   }
- * // ]
+ * // ]);
  */
 
-function treeMerge(data, callback) {
+function treeSort(data, callback) {
   var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
   var propsChildren = props.children;
-  var children, commonChildren, newItem;
-  return function recursive(data) {
-    var result = [];
-    data.forEach(function (node) {
-      var common = result.find(function (item) {
-        return callback(item, node);
-      });
-      children = node[propsChildren];
+  var children;
+  data = _toConsumableArray(data).sort(callback);
+  return treeMap(data, function (node) {
+    children = node[propsChildren];
+    node = _objectSpread2({}, node);
 
-      if (common) {
-        commonChildren = common[propsChildren];
+    if (checkValidArray(children)) {
+      node[propsChildren] = _toConsumableArray(node[propsChildren]).sort(callback);
+    }
 
-        if (checkValidArray(children)) {
-          if (checkValidArray(commonChildren)) {
-            common[propsChildren] = recursive([].concat(_toConsumableArray(commonChildren), _toConsumableArray(children)));
-          } else {
-            common[propsChildren] = recursive(children);
-          }
-        }
-      } else {
-        newItem = _objectSpread2({}, node);
-
-        if (checkValidArray(children)) {
-          newItem[propsChildren] = _toConsumableArray(children);
-        }
-
-        result.push(newItem);
-      }
-    });
-    return result;
-  }(data);
+    return node;
+  }, props);
 }
 
-export default treeMerge;
+export default treeSort;
