@@ -12,15 +12,17 @@ npm install --save operation-tree-node
 
 common arguments:
 
-| name     | type                                      | description                                                                                    |
-| -------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| data     | object[]                                  | example: [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }]                              |
-| callback | (node, index, arr, parent) => object/void | node: tree node, index: parent children's index,<br> arr: parent children, parent: parent node |
-| props    | { children: string, parent: string }      | tree node's 'children' and 'parent' name                                                       |
+| name       | type                                                | description                                                                                    |
+| ---------- | --------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `data`     | `object[]`                                          | example: `[{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }]`                            |
+| `callback` | `(node, index, arr, parent) => boolean/object/void` | node: tree node, index: parent children's index,<br> arr: parent children, parent: parent node |
+| `props`    | `{ id: string, children: string, parent: string }`  | tree node's 'children', 'parent' and 'id' key name                                             |
 
 examples:
 
 - treeEach(data, callback, props) tree node each
+
+> if `callback() === false`, skip children.
 
 ```js
 import { treeEach } from "operation-tree-node";
@@ -91,11 +93,11 @@ console.log(result);
 
 arguments:
 
-| name     | type                               | description                                        |
-| -------- | ---------------------------------- | -------------------------------------------------- |
-| data     | (same)                             | (same)                                             |
-| callback | (currentNode, nextNode) => boolean | currentNode/nextNode: tree node, compare with them |
-| props    | (same)                             | (same)                                             |
+| name       | type                                 | description                                        |
+| ---------- | ------------------------------------ | -------------------------------------------------- |
+| `data`     | (same)                               | (same)                                             |
+| `callback` | `(currentNode, nextNode) => boolean` | currentNode/nextNode: tree node, compare with them |
+| `props`    | (same)                               | (same)                                             |
 
 ```js
 import { treeMerge } from "operation-tree-node";
@@ -120,15 +122,15 @@ console.log(result);
 // ]
 ```
 
-- treeSort(tree, callback, props) tree node sort(level)
+- treeSort(data, callback, props) tree node sort(level)
 
 arguments:
 
-| name     | type                              | description                                        |
-| -------- | --------------------------------- | -------------------------------------------------- |
-| data     | (same)                            | (same)                                             |
-| callback | (currentNode, nextNode) => number | currentNode/nextNode: tree node, compare with them |
-| props    | (same)                            | (same)                                             |
+| name       | type                                | description                                        |
+| ---------- | ----------------------------------- | -------------------------------------------------- |
+| `data`     | (same)                              | (same)                                             |
+| `callback` | `(currentNode, nextNode) => number` | currentNode/nextNode: tree node, compare with them |
+| `props`    | (same)                              | (same)                                             |
 
 ```js
 const treeData = [
@@ -152,4 +154,51 @@ console.log(newData);
 //     children: [{ id: 2, name: '2' }, { id: 3, name: '3' }]
 //   }
 // ]);
+```
+
+- treeEachParent(data, callback, props) tree node each parent
+
+arguments:
+
+| name       | type                       | description                                                |
+| ---------- | -------------------------- | ---------------------------------------------------------- |
+| `data`     | (same)                     | (same)                                                     |
+| `callback` | `(parent) => void/boolean` | parent: parent node, if callback false, skip parent.parent |
+| `props`    | (same)                     | (same)                                                     |
+
+```js
+import { treeEachParent } from "operation-tree-node";
+
+const treeData = [
+  { id: 1, name: "123", children: [{ id: 2, name: "2", parent: null }] }
+];
+treeData[0].children[0].parent = treeData[0];
+
+const names = [];
+treeEachParent(treeData[0].children, parent => !!names.push(parent.name));
+console.log(names);
+// ['123']
+```
+
+- treeCheck(data, checkIds, props) tree node check(all associated node)
+
+arguments:
+
+| name       | type                | description           |
+| ---------- | ------------------- | --------------------- |
+| `data`     | (same)              | (same)                |
+| `checkIds` | `number[]/string[]` | will checked node ids |
+| `props`    | (same)              | (same)                |
+
+```js
+import { treeCheck } from "operation-tree-node";
+
+const treeData = [{ id: 1, name: "123", children: [{ id: 2, name: "2" }] }];
+const resultIds = treeCheck(treeData, [2], {
+  id: "id",
+  children: "children",
+  parent: "parent"
+});
+console.log(resultIds);
+// [2, 1]
 ```
