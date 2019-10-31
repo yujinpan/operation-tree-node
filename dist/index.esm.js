@@ -1,5 +1,5 @@
 /*!
- * operation-tree-node v1.0.0
+ * operation-tree-node v1.0.1
  * (c) 2019-2019 yujinpan
  * Released under the MIT License.
  */
@@ -7,11 +7,6 @@
 function checkValidArray(data) {
   return !!(Array.isArray(data) && data.length);
 }
-
-var defaultTreeDataProps = {
-  children: 'children',
-  parent: 'parent'
-};
 
 /**
  * tree node each
@@ -30,21 +25,54 @@ var defaultTreeDataProps = {
  * const treeData = [{ id: 1, name: '1', child: [...] }];
  * treeEach(treeData, () => {...}, { children: 'child' });
  */
-
 function treeEach(data, callback) {
-  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    children: 'children'
+  };
   var children;
 
   (function recursive(data, parent) {
     data.forEach(function (node, index, arr) {
-      children = node[props.children];
-      callback(node, index, arr, parent);
+      children = node[props.children]; // if callback false, skip children
 
-      if (checkValidArray(children)) {
+      if (callback(node, index, arr, parent) !== false && checkValidArray(children)) {
         recursive(children, node);
       }
     });
   })(data, null);
+}
+
+/**
+ * tree node each parent
+ *
+ * @example
+ *
+ * const treeData = [
+ *   { id: 1, name: '123', children: [{ id: 2, name: '2', parent: null }] }
+ * ];
+ * treeData[0].children[0].parent = treeData[0];
+ * const names: string[] = [];
+ * treeEachParent(treeData[0].children, (parent) => !!names.push(parent.name));
+ * // console.log(names)
+ * // ['123']
+ */
+function treeEachParent(treeData, callback) {
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    parent: 'parent'
+  };
+  var propsParent = props.parent;
+  var parent;
+  treeData.forEach(function (node) {
+    recursive(node);
+  });
+
+  function recursive(node) {
+    parent = node[propsParent]; // if callback false, skip parent
+
+    if (parent && callback(parent) !== false) {
+      recursive(parent);
+    }
+  }
 }
 
 /**
@@ -63,9 +91,10 @@ function treeEach(data, callback) {
  * console.log(newData);
  * // [{ id: 2, name: '1', children: [{ id: 3, name: '2' }] }]
  */
-
 function treeMap(data, callback) {
-  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    children: 'children'
+  };
   var propsChildren = props.children;
   var children;
   return function recursive(data, parent) {
@@ -167,9 +196,10 @@ function _nonIterableSpread() {
  * console.log(result);
  * // [{ id: 1, name: '1', child: [{ id: 2, name: '2' }] }]
  */
-
 function treeFilter(data, callback) {
-  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    children: 'children'
+  };
   var propsChildren = props.children;
   var children;
   return function recursive(data, parent) {
@@ -212,12 +242,11 @@ function treeFilter(data, callback) {
  * //   { id: 2, name: '2' }
  * // ]
  */
-
 function treeToFlatArray(data) {
   var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (node) {
     return node;
   };
-  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var props = arguments.length > 2 ? arguments[2] : undefined;
   var result = [];
   treeEach(data, function () {
     result.push(callback.apply(void 0, arguments));
@@ -249,9 +278,10 @@ function treeToFlatArray(data) {
  * //   }
  * // ]
  */
-
 function treeMerge(data, callback) {
-  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    children: 'children'
+  };
   var propsChildren = props.children;
   var children, commonChildren, newItem;
   return function recursive(data) {
@@ -315,7 +345,9 @@ function treeMerge(data, callback) {
  */
 
 function treeSort(data, callback) {
-  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    children: 'children'
+  };
   var propsChildren = props.children;
   var children;
   data = _toConsumableArray(data).sort(callback);
@@ -331,4 +363,89 @@ function treeSort(data, callback) {
   }, props);
 }
 
-export { treeEach, treeFilter, treeMap, treeMerge, treeSort, treeToFlatArray };
+/**
+ * tree node check(all associated node)
+ *
+ * @example
+ *
+ * const treeData = [{ id: 1, name: '123', children: [{ id: 2, name: '2' }] }];
+ * const resultIds = treeCheck(treeData, [2], {
+ *   id: 'id',
+ *   children: 'children',
+ *   parent: 'parent'
+ * });
+ * console.log(resultIds)
+ * // [2, 1]
+ */
+
+function treeCheck(data, checkIds) {
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    id: 'id',
+    children: 'children',
+    parent: 'parent'
+  };
+  var propsChildren = props.children,
+      propsId = props.id;
+  var checkedNodesLevel = [];
+  var ids = [];
+
+  var checkNode = function checkNode(node) {
+    ids.push(node[propsId]);
+    node._checked = true;
+  };
+
+  var children; // 1. copy tree data
+  // 2. create parent reference
+  // 3. marked `_checked` false
+
+  var newData = treeMap(data, function (node, index, arr, parent) {
+    return _objectSpread2({}, node, {
+      _checked: false,
+      parent: parent
+    });
+  }, props); // 1. check children
+  // 2. change marked `_checked`
+
+  treeEach(newData, function (node) {
+    if (!node._checked) {
+      if (checkIds.includes(node[propsId])) {
+        checkNode(node);
+        checkedNodesLevel.push(node);
+        children = node[propsChildren];
+
+        if (checkValidArray(children)) {
+          treeEach(children, function (node) {
+            checkNode(node);
+          }, props);
+        }
+      }
+    } else {
+      // skip children
+      return false;
+    }
+  }, props); // 1. check parent
+
+  treeEachParent(checkedNodesLevel, function (node) {
+    if (!node._checked) {
+      var childrenLen = node[propsChildren].length; // if only 1
+
+      if (childrenLen === 1) {
+        checkNode(node);
+      } // else checking all children
+      else {
+          var count = node._checkedCount || 0;
+          node._checkedCount = count + 1;
+
+          if (node._checkedCount === childrenLen) {
+            checkNode(node);
+          }
+        }
+    } else {
+      // skip parent
+      return false;
+    }
+  }, props);
+  return ids;
+}
+
+export { treeCheck, treeEach, treeEachParent, treeFilter, treeMap, treeMerge, treeSort, treeToFlatArray };

@@ -36,6 +36,14 @@ const multiOption = [
   {
     input: 'src/treeSort.ts',
     output: createOutputOptions('treeSort')
+  },
+  {
+    input: 'src/treeEachParent.ts',
+    output: createOutputOptions('treeEachParent')
+  },
+  {
+    input: 'src/treeCheck.ts',
+    output: createOutputOptions('treeCheck')
   }
 ];
 

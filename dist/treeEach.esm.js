@@ -1,5 +1,5 @@
 /*!
- * operation-tree-node v1.0.0
+ * operation-tree-node v1.0.1
  * (c) 2019-2019 yujinpan
  * Released under the MIT License.
  */
@@ -7,11 +7,6 @@
 function checkValidArray(data) {
   return !!(Array.isArray(data) && data.length);
 }
-
-var defaultTreeDataProps = {
-  children: 'children',
-  parent: 'parent'
-};
 
 /**
  * tree node each
@@ -30,17 +25,17 @@ var defaultTreeDataProps = {
  * const treeData = [{ id: 1, name: '1', child: [...] }];
  * treeEach(treeData, () => {...}, { children: 'child' });
  */
-
 function treeEach(data, callback) {
-  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    children: 'children'
+  };
   var children;
 
   (function recursive(data, parent) {
     data.forEach(function (node, index, arr) {
-      children = node[props.children];
-      callback(node, index, arr, parent);
+      children = node[props.children]; // if callback false, skip children
 
-      if (checkValidArray(children)) {
+      if (callback(node, index, arr, parent) !== false && checkValidArray(children)) {
         recursive(children, node);
       }
     });

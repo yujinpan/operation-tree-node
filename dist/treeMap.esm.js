@@ -1,5 +1,5 @@
 /*!
- * operation-tree-node v1.0.0
+ * operation-tree-node v1.0.1
  * (c) 2019-2019 yujinpan
  * Released under the MIT License.
  */
@@ -7,11 +7,6 @@
 function checkValidArray(data) {
   return !!(Array.isArray(data) && data.length);
 }
-
-var defaultTreeDataProps = {
-  children: 'children',
-  parent: 'parent'
-};
 
 /**
  * tree node map
@@ -29,9 +24,10 @@ var defaultTreeDataProps = {
  * console.log(newData);
  * // [{ id: 2, name: '1', children: [{ id: 3, name: '2' }] }]
  */
-
 function treeMap(data, callback) {
-  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    children: 'children'
+  };
   var propsChildren = props.children;
   var children;
   return function recursive(data, parent) {

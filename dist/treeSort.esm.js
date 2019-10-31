@@ -1,5 +1,5 @@
 /*!
- * operation-tree-node v1.0.0
+ * operation-tree-node v1.0.1
  * (c) 2019-2019 yujinpan
  * Released under the MIT License.
  */
@@ -72,11 +72,6 @@ function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance");
 }
 
-var defaultTreeDataProps = {
-  children: 'children',
-  parent: 'parent'
-};
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function checkValidArray(data) {
   return !!(Array.isArray(data) && data.length);
@@ -98,9 +93,10 @@ function checkValidArray(data) {
  * console.log(newData);
  * // [{ id: 2, name: '1', children: [{ id: 3, name: '2' }] }]
  */
-
 function treeMap(data, callback) {
-  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    children: 'children'
+  };
   var propsChildren = props.children;
   var children;
   return function recursive(data, parent) {
@@ -146,7 +142,9 @@ function treeMap(data, callback) {
  */
 
 function treeSort(data, callback) {
-  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultTreeDataProps;
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    children: 'children'
+  };
   var propsChildren = props.children;
   var children;
   data = _toConsumableArray(data).sort(callback);
