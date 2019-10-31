@@ -1,6 +1,5 @@
 import { checkValidArray } from './utils/checkValidArray';
 import {
-  defaultTreeDataProps,
   TreeDataProps,
   TreeEachCallback
 } from './common';
@@ -24,8 +23,8 @@ import {
  */
 export default function treeEach<T>(
   data: T[],
-  callback: TreeEachCallback<void, T>,
-  props: TreeDataProps = defaultTreeDataProps
+  callback: TreeEachCallback<void | boolean, T>,
+  props: TreeDataProps = { children: 'children' }
 ): void {
   let children: T[];
 
@@ -33,9 +32,11 @@ export default function treeEach<T>(
     data.forEach((node, index, arr) => {
       children = node[props.children];
 
-      callback(node, index, arr, parent);
-
-      if (checkValidArray(children)) {
+      // if callback false, skip children
+      if (
+        callback(node, index, arr, parent) !== false &&
+        checkValidArray(children)
+      ) {
         recursive(children, node);
       }
     });

@@ -1,5 +1,5 @@
 import { checkValidArray } from './utils/checkValidArray';
-import { defaultTreeDataProps, TreeDataProps } from './common';
+import { TreeDataProps } from './common';
 
 /**
  * tree node merge(level)
@@ -28,9 +28,9 @@ import { defaultTreeDataProps, TreeDataProps } from './common';
 export default function treeMerge<T>(
   data: T[],
   callback: (currentNode: T, nextNode: T) => boolean,
-  props: TreeDataProps = defaultTreeDataProps
+  props: TreeDataProps = { children: 'children' }
 ): T[] {
-  const propsChildren: string = props.children;
+  const propsChildren = props.children;
   let children: T[], commonChildren: T[], newItem: T;
 
   return (function recursive(data): T[] {

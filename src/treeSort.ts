@@ -1,4 +1,4 @@
-import { defaultTreeDataProps, TreeDataProps } from './common';
+import { TreeDataProps } from './common';
 import treeMap from './treeMap';
 import { checkValidArray } from './utils/checkValidArray';
 
@@ -32,10 +32,11 @@ import { checkValidArray } from './utils/checkValidArray';
 export default function treeSort<T>(
   data: T[],
   callback: (currentNode: T, nextNode: T) => number,
-  props: TreeDataProps = defaultTreeDataProps
+  props: TreeDataProps = { children: 'children' }
 ): T[] {
   const propsChildren = props.children;
-  let children;
+  let children: T[];
+
   data = [...data].sort(callback);
   return treeMap(
     data,

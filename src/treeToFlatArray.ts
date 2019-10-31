@@ -1,9 +1,5 @@
 import treeEach from './treeEach';
-import {
-  defaultTreeDataProps,
-  TreeDataProps,
-  TreeEachCallback
-} from './common';
+import { TreeDataProps, TreeEachCallback } from './common';
 
 /**
  * tree to flat array
@@ -22,9 +18,10 @@ import {
 export default function treeToFlatArray<T, R>(
   data: T[],
   callback: TreeEachCallback<T | R, T> = (node): T | R => node,
-  props: TreeDataProps = defaultTreeDataProps
+  props: TreeDataProps
 ): Array<T | R> {
   const result: Array<T | R> = [];
+
   treeEach(
     data,
     (...params) => {

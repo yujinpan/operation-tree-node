@@ -15,6 +15,6 @@ import { TreeDataProps, TreeEachCallback } from './common';
  */
 export default function treeToFlatArray<T, R>(
   data: T[],
-  callback?: TreeEachCallback<T | R, T>,
-  props?: TreeDataProps
+  callback: TreeEachCallback<T | R, T>,
+  props: TreeDataProps
 ): Array<T | R>;

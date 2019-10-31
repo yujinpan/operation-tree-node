@@ -18,6 +18,6 @@ import { TreeDataProps, TreeEachCallback } from './common';
  */
 export default function treeEach<T>(
   data: T[],
-  callback: TreeEachCallback<void, T>,
+  callback: TreeEachCallback<void | boolean, T>,
   props?: TreeDataProps
 ): void;

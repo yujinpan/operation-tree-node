@@ -1,9 +1,5 @@
 import { checkValidArray } from './utils/checkValidArray';
-import {
-  defaultTreeDataProps,
-  TreeDataProps,
-  TreeEachCallback
-} from './common';
+import { TreeDataProps, TreeEachCallback } from './common';
 
 /**
  * tree node map
@@ -24,9 +20,9 @@ import {
 export default function treeMap<T, R>(
   data: T[],
   callback: TreeEachCallback<R, T>,
-  props: TreeDataProps = defaultTreeDataProps
+  props: TreeDataProps = { children: 'children' }
 ): R[] {
-  const propsChildren: string = props.children;
+  const propsChildren = props.children;
   let children: T[];
 
   return (function recursive(data, parent): R[] {
