@@ -1,6 +1,6 @@
 {
   "name": "operation-tree-node",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "yujinpan",
   "main": "dist/index.common.js",
   "module": "dist/index.esm.js",
