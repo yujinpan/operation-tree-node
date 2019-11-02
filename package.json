@@ -5,8 +5,9 @@
   "main": "dist/index.common.js",
   "module": "dist/index.esm.js",
   "keywords": [
-    "package",
-    "rollup"
+    "operation-tree",
+    "tree-node",
+    "tree-structure"
   ],
   "typings": "types/index.d.ts",
   "files": [
