@@ -1,5 +1,5 @@
 /*!
- * operation-tree-node v1.0.3
+ * operation-tree-node v1.0.4
  * (c) 2019-2019 yujinpan
  * Released under the MIT License.
  */
