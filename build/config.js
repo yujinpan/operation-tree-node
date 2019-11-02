@@ -44,6 +44,10 @@ const multiOption = [
   {
     input: 'src/treeCheck.ts',
     output: createOutputOptions('treeCheck')
+  },
+  {
+    input: 'src/treeFind.ts',
+    output: createOutputOptions('treeFind')
   }
 ];
 
