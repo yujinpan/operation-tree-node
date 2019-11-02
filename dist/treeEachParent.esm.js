@@ -1,11 +1,11 @@
 /*!
- * operation-tree-node v1.0.1
+ * operation-tree-node v1.0.2
  * (c) 2019-2019 yujinpan
  * Released under the MIT License.
  */
 /**
  * tree node each parent
- *
+ * @description recursive will break until callback is false
  * @example
  *
  * const treeData = [

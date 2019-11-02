@@ -1,5 +1,5 @@
 /*!
- * operation-tree-node v1.0.1
+ * operation-tree-node v1.0.2
  * (c) 2019-2019 yujinpan
  * Released under the MIT License.
  */
@@ -58,8 +58,8 @@ function checkValidArray(data) {
 }
 
 /**
- * tree node filter
- *
+ * tree node filter(like Array.prototype.filter)
+ * @description get a new data instead of change source
  * @example
  *
  * const treeData = [

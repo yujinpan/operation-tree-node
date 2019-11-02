@@ -1,5 +1,5 @@
 /*!
- * operation-tree-node v1.0.1
+ * operation-tree-node v1.0.2
  * (c) 2019-2019 yujinpan
  * Released under the MIT License.
  */
@@ -9,8 +9,8 @@ function checkValidArray(data) {
 }
 
 /**
- * tree node each
- *
+ * tree node each(like Array.prototype.forEach)
+ * @description recursive will break until callback is false
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];
@@ -44,7 +44,7 @@ function treeEach(data, callback) {
 
 /**
  * tree to flat array
- *
+ * @description get a flat array and source data structure is not change
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];

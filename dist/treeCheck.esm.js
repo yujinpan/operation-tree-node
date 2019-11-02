@@ -1,5 +1,5 @@
 /*!
- * operation-tree-node v1.0.1
+ * operation-tree-node v1.0.2
  * (c) 2019-2019 yujinpan
  * Released under the MIT License.
  */
@@ -58,8 +58,8 @@ function checkValidArray(data) {
 }
 
 /**
- * tree node each
- *
+ * tree node each(like Array.prototype.forEach)
+ * @description recursive will break until callback is false
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];
@@ -92,8 +92,8 @@ function treeEach(data, callback) {
 }
 
 /**
- * tree node map
- *
+ * tree node map(like Array.prototype.map)
+ * @description get a new data instead of change source
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];
@@ -129,7 +129,7 @@ function treeMap(data, callback) {
 
 /**
  * tree node each parent
- *
+ * @description recursive will break until callback is false
  * @example
  *
  * const treeData = [
@@ -161,8 +161,8 @@ function treeEachParent(treeData, callback) {
 }
 
 /**
- * tree node check(all associated node)
- *
+ * tree node check
+ * @description get all associated node'id by check one node
  * @example
  *
  * const treeData = [{ id: 1, name: '123', children: [{ id: 2, name: '2' }] }];

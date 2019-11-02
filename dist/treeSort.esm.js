@@ -1,5 +1,5 @@
 /*!
- * operation-tree-node v1.0.1
+ * operation-tree-node v1.0.2
  * (c) 2019-2019 yujinpan
  * Released under the MIT License.
  */
@@ -78,8 +78,8 @@ function checkValidArray(data) {
 }
 
 /**
- * tree node map
- *
+ * tree node map(like Array.prototype.map)
+ * @description get a new data instead of change source
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];
@@ -114,8 +114,8 @@ function treeMap(data, callback) {
 }
 
 /**
- * tree node sort
- *
+ * tree node sort(like Array.prototype.sort)
+ * @description get a new data instead of change source
  * @example
  *
  * const treeData = [
