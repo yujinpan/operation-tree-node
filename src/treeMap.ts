@@ -2,8 +2,8 @@ import { checkValidArray } from './utils/checkValidArray';
 import { TreeDataProps, TreeEachCallback } from './common';
 
 /**
- * tree node map
- *
+ * tree node map(like Array.prototype.map)
+ * @description get a new data instead of change source
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];

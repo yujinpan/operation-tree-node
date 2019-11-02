@@ -1,7 +1,7 @@
 import { TreeDataProps, TreeEachCallback } from './common';
 /**
- * tree node filter
- *
+ * tree node filter(like Array.prototype.filter)
+ * @description get a new data instead of change source
  * @example
  *
  * const treeData = [

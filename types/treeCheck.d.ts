@@ -1,7 +1,7 @@
 import { TreeDataProps } from './common';
 /**
- * tree node check(all associated node)
- *
+ * tree node check
+ * @description get all associated node'id by check one node
  * @example
  *
  * const treeData = [{ id: 1, name: '123', children: [{ id: 2, name: '2' }] }];

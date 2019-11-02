@@ -1,7 +1,7 @@
 import { TreeDataProps } from './common';
 /**
- * tree node merge(level)
- *
+ * tree node merge(same level)
+ * @description get a new data instead of change source
  * @example
  *
  * const treeData = [

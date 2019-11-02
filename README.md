@@ -20,9 +20,9 @@ common arguments:
 
 examples:
 
-- treeEach(data, callback, props) tree node each
+- `treeEach(data, callback, props)` tree node each(like `Array.prototype.forEach`)
 
-> if `callback() === false`, skip children.
+recursive will break until callback is false.
 
 ```js
 import { treeEach } from "operation-tree-node";
@@ -40,7 +40,26 @@ const treeData2 = [{ id: 1, name: "1", child: [{ id: 2, name: "2" }] }];
 treeEach(treeData2, console.log, { children: "child" });
 ```
 
-- treeMap(data, callback, props) tree node map
+- `treeFind(data, callback, props)` tree node find(like `Array.prototype.find`)
+
+recursive will break until found.
+
+```js
+import { treeFind } from "operation-tree-node";
+
+const treeData = [
+  { id: 1, name: "1", children: [{ id: 2, name: "2" }] },
+  { id: 1, name: "1", children: [{ id: 2, name: "2" }] }
+];
+
+const find = treeFind(treeData, node => node.id === 2);
+console.log(find);
+// { id: 2, name: '2' }
+```
+
+- `treeMap(data, callback, props)` tree node map(like `Array.prototype.map`)
+
+get a new data instead of change source.
 
 ```js
 import { treeMap } from "operation-tree-node";
@@ -57,7 +76,9 @@ console.log(newData);
 // [{ id: 2, name: '1', children: [{ id: 3, name: '2' }] }]
 ```
 
-- treeFilter(data, callback, props) tree node filter
+- `treeFilter(data, callback, props)` tree node filter(like `Array.prototype.filter`)
+
+get a new data instead of change source.
 
 ```js
 import { treeFilter } from "operation-tree-node";
@@ -74,7 +95,9 @@ console.log(result);
 // [{ id: 1, name: '1', child: [{ id: 2, name: '2' }] }]
 ```
 
-- treeToFlatArray(data, callback, props) tree to flat array
+- `treeToFlatArray(data, callback, props)` tree to flat array
+
+get a flat array and source data structure is not change.
 
 ```js
 import { treeToFlatArray } from "operation-tree-node";
@@ -89,7 +112,9 @@ console.log(result);
 // ]
 ```
 
-- treeMerge（data, callback, props) tree node merge(level)
+- `treeMerge（data, callback, props)` tree node merge(same level)
+
+get a new data instead of change source.
 
 arguments:
 
@@ -122,7 +147,9 @@ console.log(result);
 // ]
 ```
 
-- treeSort(data, callback, props) tree node sort(level)
+- `treeSort(data, callback, props)` tree node sort(like `Array.prototype.sort`)
+
+get a new data instead of change source.
 
 arguments:
 
@@ -156,7 +183,9 @@ console.log(newData);
 // ]);
 ```
 
-- treeEachParent(data, callback, props) tree node each parent
+- `treeEachParent(data, callback, props)` tree node each parent
+
+recursive will break until callback is false.
 
 arguments:
 
@@ -180,7 +209,9 @@ console.log(names);
 // ['123']
 ```
 
-- treeCheck(data, checkIds, props) tree node check(all associated node)
+- `treeCheck(data, checkIds, props)` tree node check
+
+get all associated node'id by check one node.
 
 arguments:
 

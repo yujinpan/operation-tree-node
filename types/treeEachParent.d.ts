@@ -1,7 +1,7 @@
 import { TreeDataProps } from './common';
 /**
  * tree node each parent
- *
+ * @description recursive will break until callback is false
  * @example
  *
  * const treeData = [

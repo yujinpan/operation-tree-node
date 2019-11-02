@@ -1,7 +1,7 @@
 import { TreeDataProps, TreeEachCallback } from './common';
 /**
  * tree to flat array
- *
+ * @description get a flat array and source data structure is not change
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];

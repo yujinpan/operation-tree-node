@@ -1,7 +1,7 @@
 import { TreeDataProps, TreeEachCallback } from './common';
 /**
- * tree node each
- *
+ * tree node each(like Array.prototype.forEach)
+ * @description recursive will break until callback is false
  * @example
  *
  * const treeData = [{ id: 1, name: '1', children: [{ id: 2, name: '2' }] }];

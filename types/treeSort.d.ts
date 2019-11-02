@@ -1,7 +1,7 @@
 import { TreeDataProps } from './common';
 /**
- * tree node sort
- *
+ * tree node sort(like Array.prototype.sort)
+ * @description get a new data instead of change source
  * @example
  *
  * const treeData = [
