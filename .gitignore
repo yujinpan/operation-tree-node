@@ -2,6 +2,7 @@
 package-lock.json
 node_modules
 stat
+dist
 
 # Log files
 npm-debug.log*
