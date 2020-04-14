@@ -61,4 +61,17 @@ describe('[treeFilter]:', () => {
       }
     ]);
   });
+
+  it('get none', () => {
+    const treeData = [
+      {
+        id: 1,
+        name: '1',
+        children: [{ id: 2, name: '2', children: [{ id: 4, name: '4' }] }]
+      },
+      { id: 3, name: '3' }
+    ];
+    const result = treeFilter(treeData, (node) => node.id === 5);
+    expect(result).toEqual([]);
+  });
 });
