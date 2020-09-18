@@ -31,7 +31,7 @@ export default function treeFilter<T>(
 
     data.forEach((node, index, arr) => {
       hasChildren = false;
-      newItem = { ...node };
+      newItem = copy(node);
       children = node[propsChildren];
       if (checkValidArray(children)) {
         newItemChildren = recursive(children, newItem);
@@ -47,4 +47,14 @@ export default function treeFilter<T>(
     });
     return result;
   })(data);
+}
+
+function copy<T>(val: T): T {
+  return val instanceof Object
+    ? { ...val }
+    : Array.isArray(val)
+    ? // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      ([...val] as T)
+    : val;
 }
