@@ -20,6 +20,31 @@ common arguments:
 
 examples:
 
+- `treeCheck(data, checkIds, props)` tree node check
+
+get all associated node'id by check one node.
+
+arguments:
+
+| name       | type                | description           |
+| ---------- | ------------------- | --------------------- |
+| `data`     | (same)              | (same)                |
+| `checkIds` | `number[]/string[]` | will checked node ids |
+| `props`    | (same)              | (same)                |
+
+```js
+import { treeCheck } from "operation-tree-node";
+
+const treeData = [{ id: 1, name: "123", children: [{ id: 2, name: "2" }] }];
+const resultIds = treeCheck(treeData, [2], {
+  id: "id",
+  children: "children",
+  parent: "parent"
+});
+console.log(resultIds);
+// [2, 1]
+```
+
 - `treeEach(data, callback, props)` tree node each(like `Array.prototype.forEach`)
 
 recursive will break until callback is false.
@@ -40,40 +65,30 @@ const treeData2 = [{ id: 1, name: "1", child: [{ id: 2, name: "2" }] }];
 treeEach(treeData2, console.log, { children: "child" });
 ```
 
-- `treeFind(data, callback, props)` tree node find(like `Array.prototype.find`)
+- `treeEachParent(data, callback, props)` tree node each parent
 
-recursive will break until found.
+recursive will break until callback is false.
+
+arguments:
+
+| name       | type                       | description                                                |
+| ---------- | -------------------------- | ---------------------------------------------------------- |
+| `data`     | (same)                     | (same)                                                     |
+| `callback` | `(parent) => void/boolean` | parent: parent node, if callback false, skip parent.parent |
+| `props`    | (same)                     | (same)                                                     |
 
 ```js
-import { treeFind } from "operation-tree-node";
+import { treeEachParent } from "operation-tree-node";
 
 const treeData = [
-  { id: 1, name: "1", children: [{ id: 2, name: "2" }] },
-  { id: 1, name: "1", children: [{ id: 2, name: "2" }] }
+  { id: 1, name: "123", children: [{ id: 2, name: "2", parent: null }] }
 ];
+treeData[0].children[0].parent = treeData[0];
 
-const find = treeFind(treeData, node => node.id === 2);
-console.log(find);
-// { id: 2, name: '2' }
-```
-
-- `treeMap(data, callback, props)` tree node map(like `Array.prototype.map`)
-
-get a new data instead of change source.
-
-```js
-import { treeMap } from "operation-tree-node";
-
-const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
-
-// tree node's +1
-const newData = treeMap(treeData, node => ({
-  id: node.id + 1,
-  name: node.name,
-  ...(node.children ? { children: node.children } : {})
-}));
-console.log(newData);
-// [{ id: 2, name: '1', children: [{ id: 3, name: '2' }] }]
+const names = [];
+treeEachParent(treeData[0].children, parent => !!names.push(parent.name));
+console.log(names);
+// ['123']
 ```
 
 - `treeFilter(data, callback, props)` tree node filter(like `Array.prototype.filter`)
@@ -95,21 +110,60 @@ console.log(result);
 // [{ id: 1, name: '1', child: [{ id: 2, name: '2' }] }]
 ```
 
-- `treeToFlatArray(data, callback, props)` tree to flat array
+- `treeFind(data, callback, props)` tree node find(like `Array.prototype.find`)
 
-get a flat array and source data structure is not change.
+recursive will break until found.
 
 ```js
-import { treeToFlatArray } from "operation-tree-node";
+import { treeFind } from "operation-tree-node";
+
+const treeData = [
+  { id: 1, name: "1", children: [{ id: 2, name: "2" }] },
+  { id: 1, name: "1", children: [{ id: 2, name: "2" }] }
+];
+
+const find = treeFind(treeData, node => node.id === 2);
+console.log(find);
+// { id: 2, name: '2' }
+```
+
+- `treeFind(node, callback, props)` tree node find parent
+
+```js
+import { treeFindParent } from "operation-tree-node";
+
+const treeData = [
+  {
+    id: 1,
+    name: "123",
+    parent: null,
+    children: [{ id: 2, name: "2", parent: null, children: [] }]
+  }
+];
+treeData[0].children[0].parent = treeData[0];
+
+const find = treeFindParent(treeData[0].children[0], node => node.id === 1);
+console.log(find);
+// { id: 1, name: '123', children: ... }
+```
+
+- `treeMap(data, callback, props)` tree node map(like `Array.prototype.map`)
+
+get a new data instead of change source.
+
+```js
+import { treeMap } from "operation-tree-node";
 
 const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
 
-const result = treeToFlatArray(treeData);
-console.log(result);
-// [
-//   { id: 1, name: '1', children: [{ id: 2, name: '2' }] },
-//   { id: 2, name: '2' }
-// ]
+// tree node's +1
+const newData = treeMap(treeData, node => ({
+  id: node.id + 1,
+  name: node.name,
+  ...(node.children ? { children: node.children } : {})
+}));
+console.log(newData);
+// [{ id: 2, name: '1', children: [{ id: 3, name: '2' }] }]
 ```
 
 - `treeMerge（data, callback, props)` tree node merge(same level)
@@ -183,53 +237,19 @@ console.log(newData);
 // ]);
 ```
 
-- `treeEachParent(data, callback, props)` tree node each parent
+- `treeToFlatArray(data, callback, props)` tree to flat array
 
-recursive will break until callback is false.
-
-arguments:
-
-| name       | type                       | description                                                |
-| ---------- | -------------------------- | ---------------------------------------------------------- |
-| `data`     | (same)                     | (same)                                                     |
-| `callback` | `(parent) => void/boolean` | parent: parent node, if callback false, skip parent.parent |
-| `props`    | (same)                     | (same)                                                     |
+get a flat array and source data structure is not change.
 
 ```js
-import { treeEachParent } from "operation-tree-node";
+import { treeToFlatArray } from "operation-tree-node";
 
-const treeData = [
-  { id: 1, name: "123", children: [{ id: 2, name: "2", parent: null }] }
-];
-treeData[0].children[0].parent = treeData[0];
+const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
 
-const names = [];
-treeEachParent(treeData[0].children, parent => !!names.push(parent.name));
-console.log(names);
-// ['123']
-```
-
-- `treeCheck(data, checkIds, props)` tree node check
-
-get all associated node'id by check one node.
-
-arguments:
-
-| name       | type                | description           |
-| ---------- | ------------------- | --------------------- |
-| `data`     | (same)              | (same)                |
-| `checkIds` | `number[]/string[]` | will checked node ids |
-| `props`    | (same)              | (same)                |
-
-```js
-import { treeCheck } from "operation-tree-node";
-
-const treeData = [{ id: 1, name: "123", children: [{ id: 2, name: "2" }] }];
-const resultIds = treeCheck(treeData, [2], {
-  id: "id",
-  children: "children",
-  parent: "parent"
-});
-console.log(resultIds);
-// [2, 1]
+const result = treeToFlatArray(treeData);
+console.log(result);
+// [
+//   { id: 1, name: '1', children: [{ id: 2, name: '2' }] },
+//   { id: 2, name: '2' }
+// ]
 ```
