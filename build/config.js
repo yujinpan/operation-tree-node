@@ -58,7 +58,7 @@ function createOutputOptions(name) {
       format: 'cjs'
     },
     {
-      file: `${outputDir}/${name}.esm.js`,
+      file: `${outputDir}/${name}.js`,
       format: 'es'
     }
   ];

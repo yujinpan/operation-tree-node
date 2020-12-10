@@ -5,10 +5,9 @@ const config = require('./config');
 
 const defaultRollupConfig = require('./rollup.config.js');
 
-// create output dir
-if (!fs.existsSync(config.outputDir)) {
-  fs.mkdirSync(config.outputDir);
-}
+// clear and create
+fs.rmdirSync(config.outputDir, { recursive: true });
+fs.mkdirSync(config.outputDir);
 
 // run build
 build(config.multiOption).then(() => {
