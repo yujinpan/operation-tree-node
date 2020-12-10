@@ -1,5 +1,5 @@
 import { checkValidArray } from './utils/checkValidArray';
-import { TreeDataProps } from './common';
+import { TreeDataProps } from './types';
 import treeEach from './treeEach';
 import treeMap from './treeMap';
 import treeEachParent from './treeEachParent';

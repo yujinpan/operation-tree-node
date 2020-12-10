@@ -1,5 +1,5 @@
 import { checkValidArray } from './utils/checkValidArray';
-import { TreeDataProps } from './common';
+import { TreeDataProps } from './types';
 
 /**
  * tree node merge(same level)

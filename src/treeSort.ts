@@ -1,4 +1,4 @@
-import { TreeDataProps } from './common';
+import { TreeDataProps } from './types';
 import treeMap from './treeMap';
 import { checkValidArray } from './utils/checkValidArray';
 

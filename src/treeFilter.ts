@@ -1,5 +1,5 @@
 import { checkValidArray } from './utils/checkValidArray';
-import { TreeDataProps, TreeEachCallback } from './common';
+import { TreeDataProps, TreeEachCallback } from './types';
 
 /**
  * tree node filter(like Array.prototype.filter)

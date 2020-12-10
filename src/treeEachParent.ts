@@ -1,4 +1,4 @@
-import { TreeDataProps } from './common';
+import { TreeDataProps } from './types';
 
 /**
  * tree node each parent
