@@ -1,4 +1,4 @@
-import { treeFilter } from 'src';
+import { treeFilter } from '@/index';
 
 describe('[treeFilter]:', () => {
   it("get tree node's id is number 2 use props", () => {

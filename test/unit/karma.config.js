@@ -6,11 +6,11 @@ module.exports = (config) => {
       'index.js': ['webpack', 'sourcemap']
     },
     browsers: ['Chrome'],
-    // singleRun: true,
+    singleRun: true,
     webpack: {
       mode: 'development',
       resolve: {
-        alias: require('../../build/alias'),
+        alias: require('../../alias.config'),
         extensions: ['.ts', '.js']
       },
       devtool: 'inline-source-map',

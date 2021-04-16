@@ -1,4 +1,4 @@
-import { treeToFlatArray } from 'src';
+import { treeToFlatArray } from '@/index';
 
 describe('[treeToFlatArray]:', () => {
   it('get flat array', () => {

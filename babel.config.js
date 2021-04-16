@@ -1,5 +1,4 @@
 module.exports = {
-  presets: ['@babel/preset-env', '@babel/preset-typescript'],
-  plugins: ['@babel/plugin-proposal-export-default-from'],
+  extends: 'rollupx/babel.config.js',
   exclude: 'node_modules/**'
 };

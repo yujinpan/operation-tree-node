@@ -1,4 +1,4 @@
-import { treeCheck } from 'src';
+import { treeCheck } from '@/index';
 
 describe('[treeEachParent]:', () => {
   it('check node id 1', () => {

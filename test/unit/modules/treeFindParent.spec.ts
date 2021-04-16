@@ -1,4 +1,4 @@
-import { treeFindParent } from 'src';
+import { treeFindParent } from '@/index';
 
 describe('[treeEachParent]:', () => {
   const treeData = [

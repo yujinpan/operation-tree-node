@@ -1,4 +1,4 @@
-import { treeEachParent } from 'src';
+import { treeEachParent } from '@/index';
 
 describe('[treeEachParent]:', () => {
   it('get all parent name', () => {

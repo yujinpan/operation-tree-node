@@ -11,23 +11,20 @@
   ],
   "typings": "types/index.d.ts",
   "files": [
-    "src",
-    "dist/*.js",
-    "types/**/*.d.ts"
+    "dist",
+    "README.md"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production npm run build:js && npm run build:types",
+    "build": "cross-env NODE_ENV=production rollupx && eslint --fix dist/**/*.d.ts",
     "test": "karma start test/unit/karma.config.js",
-    "build:js": "node build/build.js",
-    "build:types": "tsc --emitDeclarationOnly && eslint --fix 'types/**/*'",
     "lint": "eslint --fix './**/*'"
   },
-  "dependencies": {},
+  "dependencies": {
+    "core-js": "^3.x"
+  },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-proposal-export-default-from": "^7.5.2",
-    "@babel/preset-env": "^7.6.3",
-    "@babel/preset-typescript": "^7.6.0",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-typescript": "^7.13.0",
     "@types/jasmine": "^3.4.4",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
@@ -44,14 +41,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^4.0.2",
     "prettier": "1.18.2",
-    "rollup": "^1.13.1",
-    "rollup-plugin-alias": "^1.5.2",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^10.0.0",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.0.1",
-    "rollup-plugin-visualizer": "^1.1.1",
-    "terser": "^4.3.9",
+    "rollupx": "^1.1.8",
     "typescript": "^3.6.4",
     "webpack": "^4.41.2"
   },

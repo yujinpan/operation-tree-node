@@ -1,4 +1,4 @@
-import { treeMerge } from 'src';
+import { treeMerge } from '@/index';
 
 describe('[treeMerge]:', () => {
   it("merge tree node's type is same", () => {

@@ -1,4 +1,4 @@
-import { treeSort } from 'src';
+import { treeSort } from '@/index';
 
 describe('[treeSort]:', () => {
   it("tree node sort by id, and does's change source data", () => {

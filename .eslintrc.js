@@ -4,10 +4,6 @@
 module.exports = {
   root: true,
 
-  env: {
-    node: true
-  },
-
   extends: [
     'plugin:@typescript-eslint/recommended',
     'prettier',
@@ -34,12 +30,6 @@ module.exports = {
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off'
-      }
-    },
-    {
-      files: ['*.spec.ts'],
-      rules: {
-        '@typescript-eslint/ban-ts-ignore': 'off'
       }
     }
   ]

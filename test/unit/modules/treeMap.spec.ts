@@ -1,4 +1,4 @@
-import { treeMap } from 'src';
+import { treeMap } from '@/index';
 
 describe('[treeMap]:', () => {
   it("change all tree node's id to +1, and return new tree data", () => {

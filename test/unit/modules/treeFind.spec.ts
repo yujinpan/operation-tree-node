@@ -1,4 +1,4 @@
-import { treeFind } from 'src';
+import { treeFind } from '@/index';
 
 describe('[treeFind]:', () => {
   it('get node by id is 1', () => {

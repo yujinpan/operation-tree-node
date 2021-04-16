@@ -1,4 +1,4 @@
-import { treeEach } from 'src';
+import { treeEach } from '@/index';
 
 describe('[treeEach]:', () => {
   it("get all tree node's name", () => {
