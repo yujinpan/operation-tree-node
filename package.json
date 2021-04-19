@@ -2,14 +2,13 @@
   "name": "operation-tree-node",
   "version": "1.0.7",
   "author": "yujinpan",
-  "main": "dist/index.common.js",
-  "module": "dist/index.esm.js",
+  "module": "dist/index.js",
   "keywords": [
     "operation-tree",
     "tree-node",
     "tree-structure"
   ],
-  "typings": "types/index.d.ts",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "README.md"
