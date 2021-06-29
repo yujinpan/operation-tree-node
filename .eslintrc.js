@@ -14,6 +14,8 @@ module.exports = {
 
   rules: {
     '@typescript-eslint/no-use-before-define': ['error', {'functions': false, 'classes': false}],
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off',
     'prettier/prettier': [
       'error',
       {singleQuote: true, arrowParens: 'always', semi: true}
