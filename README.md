@@ -91,7 +91,7 @@ console.log(names);
 // ['123']
 ```
 
-- `treeFilter(data, callback, props)` tree node filter(like `Array.prototype.filter`)
+- `treeFilter(data, callback, props, isStrictly)` tree node filter(like `Array.prototype.filter`)
 
 get a new data instead of change source.
 

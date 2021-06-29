@@ -3,6 +3,7 @@ export interface TreeDataProps {
   parent?: string;
   id?: string | number;
 }
+
 export type TreeEachCallback<T, N = T> = (
   node: N,
   index: number,
