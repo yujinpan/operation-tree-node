@@ -18,7 +18,7 @@ import { TreeDataProps, TreeEachCallback } from './types';
 export default function treeToFlatArray<T, R>(
   data: T[],
   callback: TreeEachCallback<T | R, T> = (node): T | R => node,
-  props: TreeDataProps
+  props?: TreeDataProps
 ): Array<T | R> {
   const result: Array<T | R> = [];
 
