@@ -2,6 +2,7 @@
   "name": "operation-tree-node",
   "version": "1.0.9",
   "author": "yujinpan",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "keywords": [
     "operation-tree",
