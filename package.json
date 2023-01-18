@@ -1,6 +1,6 @@
 {
   "name": "operation-tree-node",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "author": "yujinpan",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
