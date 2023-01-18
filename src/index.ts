@@ -1,3 +1,7 @@
+export * from './treeAppendLevel';
+export { default as treeAppendLevel } from './treeAppendLevel';
+export * from './treeAppendParent';
+export { default as treeAppendParent } from './treeAppendParent';
 export { default as treeCheck } from './treeCheck';
 export { default as treeEach } from './treeEach';
 export { default as treeEachParent } from './treeEachParent';
@@ -6,5 +10,6 @@ export { default as treeFind } from './treeFind';
 export { default as treeFindParent } from './treeFindParent';
 export { default as treeMap } from './treeMap';
 export { default as treeMerge } from './treeMerge';
+export { default as treeNodeLevel } from './treeNodeLevel';
 export { default as treeSort } from './treeSort';
 export { default as treeToFlatArray } from './treeToFlatArray';
