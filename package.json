@@ -2,6 +2,9 @@
   "name": "operation-tree-node",
   "version": "1.0.10",
   "author": "yujinpan",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "main": "dist/index.js",
   "module": "dist/index.js",
   "keywords": [
