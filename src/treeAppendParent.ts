@@ -1,5 +1,14 @@
-import { TreeData } from '@/types';
 import treeEach from './treeEach';
+
+export type TreeDataAppendParent<
+  Node,
+  Children extends string = 'children',
+  Parent extends string = 'parent'
+> = Omit<Node, Children> & {
+  [P in Children]?: TreeDataAppendParent<Node, Children, Parent>[];
+} & {
+  [P in Parent]?: TreeDataAppendParent<Node, Children, Parent>;
+};
 
 /**
  * append `parent` to each tree node
@@ -16,7 +25,7 @@ export default function treeAppendParent<
   T extends object,
   C extends string = 'children',
   P extends string = 'parent',
-  R extends TreeData<T, C, P> = TreeData<T, C, P>
+  R extends TreeDataAppendParent<T, C, P> = TreeDataAppendParent<T, C, P>
 >(data: T[], props: { children?: C; parent?: P } = {}): R[] {
   const propsParent = props.parent || 'parent';
 
@@ -27,7 +36,7 @@ export default function treeAppendParent<
         value: parent,
         configurable: true,
         writable: true,
-        enumerable: false
+        enumerable: false,
       });
     },
     props
