@@ -17,17 +17,16 @@ import { TreeDataProps } from './types';
 export default function treeEachParent<T>(
   treeData: T[],
   callback: (node: T) => void | boolean,
-  props: TreeDataProps = { parent: 'parent' }
+  props: TreeDataProps = {}
 ): void {
-  const propsParent = props.parent;
-  let parent: T;
+  const propsParent = props.parent || 'parent';
 
   treeData.forEach((node) => {
     recursive(node);
   });
 
   function recursive(node): void {
-    parent = node[propsParent];
+    const parent = node[propsParent];
 
     // if callback false, skip parent
     if (parent && callback(parent) !== false) {

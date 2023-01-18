@@ -20,15 +20,14 @@ import { TreeDataProps, TreeEachCallback } from './types';
 export default function treeMap<T, R>(
   data: T[],
   callback: TreeEachCallback<R, T>,
-  props: TreeDataProps = { children: 'children' }
+  props: TreeDataProps = {}
 ): R[] {
-  const propsChildren = props.children;
-  let children: T[];
+  const propsChildren = props.children || 'children';
 
   return (function recursive(data, parent): R[] {
     return data.map((node, index, arr) => {
       const newItem: R = callback(node, index, arr, parent);
-      children = newItem[propsChildren];
+      const children = newItem[propsChildren];
       if (checkValidArray(children)) {
         newItem[propsChildren] = recursive(children, newItem);
       }

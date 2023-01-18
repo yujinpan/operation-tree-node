@@ -28,19 +28,18 @@ import { TreeDataProps } from './types';
 export default function treeMerge<T>(
   data: T[],
   callback: (currentNode: T, nextNode: T) => boolean,
-  props: TreeDataProps = { children: 'children' }
+  props: TreeDataProps = {}
 ): T[] {
-  const propsChildren = props.children;
-  let children: T[], commonChildren: T[], newItem: T;
+  const propsChildren = props.children || 'children';
 
   return (function recursive(data): T[] {
     const result: T[] = [];
 
     data.forEach((node) => {
       const common = result.find((item) => callback(item, node));
-      children = node[propsChildren];
+      const children = node[propsChildren];
       if (common) {
-        commonChildren = common[propsChildren];
+        const commonChildren = common[propsChildren];
         if (checkValidArray(children)) {
           if (checkValidArray(commonChildren)) {
             common[propsChildren] = recursive([...commonChildren, ...children]);
@@ -49,7 +48,7 @@ export default function treeMerge<T>(
           }
         }
       } else {
-        newItem = { ...node };
+        const newItem = { ...node };
         if (checkValidArray(children)) {
           newItem[propsChildren] = [...children];
         }

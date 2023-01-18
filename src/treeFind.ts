@@ -18,23 +18,21 @@ import { TreeDataProps, TreeEachCallback } from './types';
 export default function treeFind<T>(
   data: T[],
   callback: TreeEachCallback<boolean, T>,
-  props: TreeDataProps = { children: 'children' }
+  props: TreeDataProps = {}
 ): T | null {
-  let children: T[],
-    node: T,
-    find: T | null = null;
+  const propsChildren = props.children || 'children';
 
   return (function recursive(data, parent): T | null {
     const len = data.length;
-    let index;
-    for (index = 0; index < len; index++) {
-      node = data[index];
+    let find: T | null = null;
+    for (let index = 0; index < len; index++) {
+      let node = data[index];
       if (callback(node, index, data, parent)) {
         find = node;
         break;
       }
 
-      children = node[props.children];
+      const children = node[propsChildren];
       if (checkValidArray(children)) {
         node = recursive(children, node);
         if (node) {

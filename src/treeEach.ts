@@ -21,13 +21,13 @@ import { TreeDataProps, TreeEachCallback } from './types';
 export default function treeEach<T>(
   data: T[],
   callback: TreeEachCallback<any, T>,
-  props: TreeDataProps = { children: 'children' }
+  props: TreeDataProps = {}
 ): void {
-  let children: T[];
+  const propsChildren = props.children || 'children';
 
   (function recursive(data, parent): void {
     data.forEach((node, index, arr) => {
-      children = node[props.children];
+      const children = node[propsChildren];
 
       // if callback false, skip children
       if (

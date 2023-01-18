@@ -21,16 +21,17 @@ import treeEachParent from './treeEachParent';
 export default function treeCheck<T, K>(
   data: T[],
   checkIds: K[],
-  props: TreeDataProps = { id: 'id', children: 'children', parent: 'parent' }
+  props: TreeDataProps = {}
 ): K[] {
-  const { children: propsChildren, id: propsId } = props;
+  const propsId = props.id || 'id';
+  const propsChildren = props.children || 'children';
+
   const checkedNodesLevel = [];
   const ids = [];
   const checkNode = (node): void => {
     ids.push(node[propsId]);
     node._checked = true;
   };
-  let children;
 
   // 1. copy tree data
   // 2. create parent reference
@@ -50,7 +51,7 @@ export default function treeCheck<T, K>(
         if (checkIds.includes(node[propsId])) {
           checkNode(node);
           checkedNodesLevel.push(node);
-          children = node[propsChildren];
+          const children = node[propsChildren];
           if (checkValidArray(children)) {
             treeEach(
               children,

@@ -24,19 +24,17 @@ export default function treeFilter<T extends Record<string, any>>(
   isStrictly = false
 ): T[] {
   const propsChildren = props.children || 'children';
-  let children: T[];
 
   return (function recursive(data, parent?: T): T[] {
     const result: T[] = [];
-    let newItem: T, newItemChildren: T[], hasChildren: boolean;
 
     if (isStrictly) {
       data.forEach((node, index, arr) => {
         if (callback(node, index, arr, parent)) {
-          newItem = copy(node);
-          children = node[propsChildren];
+          const newItem = copy(node);
+          const children = node[propsChildren];
           if (checkValidArray(children)) {
-            newItemChildren = recursive(children, newItem);
+            const newItemChildren = recursive(children, newItem);
             if (checkValidArray(newItemChildren)) {
               // @ts-ignore
               newItem[propsChildren] = newItemChildren;
@@ -49,11 +47,11 @@ export default function treeFilter<T extends Record<string, any>>(
       });
     } else {
       data.forEach((node, index, arr) => {
-        hasChildren = false;
-        newItem = copy(node);
-        children = node[propsChildren];
+        let hasChildren = false;
+        const newItem = copy(node);
+        const children = node[propsChildren];
         if (checkValidArray(children)) {
-          newItemChildren = recursive(children, newItem);
+          const newItemChildren = recursive(children, newItem);
           if ((hasChildren = checkValidArray(newItemChildren))) {
             // @ts-ignore
             newItem[propsChildren] = newItemChildren;

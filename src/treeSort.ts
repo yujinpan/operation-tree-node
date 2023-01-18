@@ -32,16 +32,15 @@ import { checkValidArray } from './utils/checkValidArray';
 export default function treeSort<T>(
   data: T[],
   callback: (currentNode: T, nextNode: T) => number,
-  props: TreeDataProps = { children: 'children' }
+  props: TreeDataProps = {}
 ): T[] {
-  const propsChildren = props.children;
-  let children: T[];
+  const propsChildren = props.children || 'children';
 
   data = [...data].sort(callback);
   return treeMap(
     data,
     (node) => {
-      children = node[propsChildren];
+      const children = node[propsChildren];
       node = { ...node };
       if (checkValidArray(children)) {
         node[propsChildren] = [...node[propsChildren]].sort(callback);

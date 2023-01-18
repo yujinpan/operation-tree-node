@@ -15,17 +15,16 @@ import { TreeDataProps } from './types';
 export default function treeFindParent<T>(
   treeNode: T,
   callback: (node: T) => boolean,
-  props: TreeDataProps = { parent: 'parent' }
+  props: TreeDataProps = {}
 ): T {
-  const propsParent = props.parent;
-  let parent: T;
+  const propsParent = props.parent || 'parent';
 
   return recursive(treeNode);
 
   function recursive(node): T {
     if (callback(node)) return node;
 
-    parent = node[propsParent];
+    const parent = node[propsParent];
     return parent ? recursive(parent) : null;
   }
 }
