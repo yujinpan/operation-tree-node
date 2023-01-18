@@ -1,6 +1,7 @@
 {
   "extends": "rollupx/tsconfig.json",
   "compilerOptions": {
+    "strict": false,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
