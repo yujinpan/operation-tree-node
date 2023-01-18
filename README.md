@@ -262,11 +262,41 @@ console.log(result);
 the `parent` is a non-enumerable property, and the method will change the source.
 
 ```js
-import { treeToFlatArray } from "operation-tree-node";
+import { treeAppendParent } from "operation-tree-node";
 
 const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
 
 treeAppendParent(treeData);
 console.log(treeData);
 // [{ id: 1, name: '1', parent: null, children: [{ id: 2, name: '2', parent: {} }] }]
+```
+
+- `treeAppendLevel(data, props)` append `level` to each tree node
+
+the `level` is a non-enumerable property, and the method will change the source.
+
+```js
+import { treeLevelParent } from "operation-tree-node";
+
+const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
+
+treeAppendLevel(treeData);
+console.log(treeData);
+// [{ id: 1, name: '1', level: 0, children: [{ id: 2, name: '2', level: 1 }] }]
+```
+
+- `treeNodeLevel(node, props)` get tree node level
+
+the method needs `parent` link, and level start with 0.
+
+```js
+import { treeAppendParent, treeNodeLevel } from "operation-tree-node";
+
+const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
+
+// link parent
+treeAppendParent(treeData);
+
+const level = treeNodeLevel(treeData[0]); // 0
+const level = treeNodeLevel(treeData[0].children[0]); // 1
 ```
