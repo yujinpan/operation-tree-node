@@ -39,7 +39,7 @@ const treeData = [{ id: 1, name: "123", children: [{ id: 2, name: "2" }] }];
 const resultIds = treeCheck(treeData, [2], {
   id: "id",
   children: "children",
-  parent: "parent"
+  parent: "parent",
 });
 console.log(resultIds);
 // [2, 1]
@@ -81,12 +81,12 @@ arguments:
 import { treeEachParent } from "operation-tree-node";
 
 const treeData = [
-  { id: 1, name: "123", children: [{ id: 2, name: "2", parent: null }] }
+  { id: 1, name: "123", children: [{ id: 2, name: "2", parent: null }] },
 ];
 treeData[0].children[0].parent = treeData[0];
 
 const names = [];
-treeEachParent(treeData[0].children, parent => !!names.push(parent.name));
+treeEachParent(treeData[0].children, (parent) => !!names.push(parent.name));
 console.log(names);
 // ['123']
 ```
@@ -100,11 +100,11 @@ import { treeFilter } from "operation-tree-node";
 
 const treeData = [
   { id: 1, name: "1", child: [{ id: 2, name: "2" }] },
-  { id: 3, name: "3" }
+  { id: 3, name: "3" },
 ];
 
-const result = treeFilter(treeData, node => node.id === 2, {
-  children: "child"
+const result = treeFilter(treeData, (node) => node.id === 2, {
+  children: "child",
 });
 console.log(result);
 // [{ id: 1, name: '1', child: [{ id: 2, name: '2' }] }]
@@ -119,10 +119,10 @@ import { treeFind } from "operation-tree-node";
 
 const treeData = [
   { id: 1, name: "1", children: [{ id: 2, name: "2" }] },
-  { id: 1, name: "1", children: [{ id: 2, name: "2" }] }
+  { id: 1, name: "1", children: [{ id: 2, name: "2" }] },
 ];
 
-const find = treeFind(treeData, node => node.id === 2);
+const find = treeFind(treeData, (node) => node.id === 2);
 console.log(find);
 // { id: 2, name: '2' }
 ```
@@ -137,12 +137,12 @@ const treeData = [
     id: 1,
     name: "123",
     parent: null,
-    children: [{ id: 2, name: "2", parent: null, children: [] }]
-  }
+    children: [{ id: 2, name: "2", parent: null, children: [] }],
+  },
 ];
 treeData[0].children[0].parent = treeData[0];
 
-const find = treeFindParent(treeData[0].children[0], node => node.id === 1);
+const find = treeFindParent(treeData[0].children[0], (node) => node.id === 1);
 console.log(find);
 // { id: 1, name: '123', children: ... }
 ```
@@ -157,10 +157,10 @@ import { treeMap } from "operation-tree-node";
 const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
 
 // tree node's +1
-const newData = treeMap(treeData, node => ({
+const newData = treeMap(treeData, (node) => ({
   id: node.id + 1,
   name: node.name,
-  ...(node.children ? { children: node.children } : {})
+  ...(node.children ? { children: node.children } : {}),
 }));
 console.log(newData);
 // [{ id: 2, name: '1', children: [{ id: 3, name: '2' }] }]
@@ -183,7 +183,7 @@ import { treeMerge } from "operation-tree-node";
 
 const treeData = [
   { id: 1, name: "1", type: "1", children: [{ id: 2, name: "2" }] },
-  { id: 3, name: "3", type: "1", children: [{ id: 4, name: "4" }] }
+  { id: 3, name: "3", type: "1", children: [{ id: 4, name: "4" }] },
 ];
 
 const result = treeMerge(
@@ -218,8 +218,11 @@ const treeData = [
   {
     id: 1,
     name: "1",
-    children: [{ id: 3, name: "3" }, { id: 2, name: "2" }]
-  }
+    children: [
+      { id: 3, name: "3" },
+      { id: 2, name: "2" },
+    ],
+  },
 ];
 
 // 1,3,2 => 1,2,3
@@ -252,4 +255,18 @@ console.log(result);
 //   { id: 1, name: '1', children: [{ id: 2, name: '2' }] },
 //   { id: 2, name: '2' }
 // ]
+```
+
+- `treeAppendParent(data, props)` append `parent` to each tree node
+
+the `parent` is a non-enumerable property, and the method will change the source.
+
+```js
+import { treeToFlatArray } from "operation-tree-node";
+
+const treeData = [{ id: 1, name: "1", children: [{ id: 2, name: "2" }] }];
+
+treeAppendParent(treeData);
+console.log(treeData);
+// [{ id: 1, name: '1', parent: null, children: [{ id: 2, name: '2', parent: {} }] }]
 ```
