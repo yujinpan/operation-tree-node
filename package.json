@@ -18,8 +18,11 @@
     "README.md"
   ],
   "scripts": {
+    "publish:beta": "npm version prerelease --preid=beta && npm publish",
+    "publish:patch": "npm version patch && npm publish",
+    "publish:minor": "npm version minor && npm publish",
     "version": "npm run build",
-    "postversion": "git push origin master && npm publish",
+    "postversion": "git push --all && git push --tags",
     "build": "cross-env NODE_ENV=production rollupx",
     "test": "karma start test/unit/karma.config.js",
     "lint": "eslint --fix './**/*'"
