@@ -20,7 +20,7 @@ import { TreeDataProps, TreeEachCallback } from './types';
  */
 export default function treeEach<T>(
   data: T[],
-  callback: TreeEachCallback<void | boolean, T>,
+  callback: TreeEachCallback<any, T>,
   props: TreeDataProps = { children: 'children' }
 ): void {
   let children: T[];
