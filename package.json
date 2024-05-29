@@ -23,7 +23,7 @@
     "publish:patch": "release-ops patch",
     "version": "npm run build",
     "postversion": "git push --all && git push --tags",
-    "build": "cross-env NODE_ENV=production rollupx",
+    "build": "rollupx",
     "test": "jest"
   },
   "dependencies": {
