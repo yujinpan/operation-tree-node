@@ -13,7 +13,6 @@
     "tree-node",
     "tree-structure"
   ],
-  "typings": "dist/index.d.ts",
   "files": [
     "lib",
     "types",
