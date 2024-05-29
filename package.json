@@ -15,7 +15,8 @@
   ],
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
+    "lib",
+    "types",
     "README.md"
   ],
   "scripts": {
