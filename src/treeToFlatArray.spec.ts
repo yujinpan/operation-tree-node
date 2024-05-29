@@ -6,19 +6,19 @@ describe('[treeToFlatArray]:', () => {
     const result = treeToFlatArray(treeData);
     expect(result).toEqual([
       { id: 1, name: '1', children: [{ id: 2, name: '2' }] },
-      { id: 2, name: '2' }
+      { id: 2, name: '2' },
     ]);
   });
 
   it('get flat array use props', () => {
     const treeData = [{ id: 1, name: '1', child: [{ id: 2, name: '2' }] }];
     const result = treeToFlatArray(treeData, (node) => node, {
-      children: 'child'
+      children: 'child',
     });
     // @ts-ignore
     expect(result).toEqual([
       { id: 1, name: '1', child: [{ id: 2, name: '2' }] },
-      { id: 2, name: '2' }
+      { id: 2, name: '2' },
     ]);
   });
 
@@ -27,12 +27,12 @@ describe('[treeToFlatArray]:', () => {
     const result = treeToFlatArray(treeData, (node) => ({
       id: node.id + 1,
       name: node.name,
-      ...(node.children ? { children: node.children } : {})
+      ...(node.children ? { children: node.children } : {}),
     }));
     // @ts-ignore
     expect(result).toEqual([
       { id: 2, name: '1', children: [{ id: 2, name: '2' }] },
-      { id: 3, name: '2' }
+      { id: 3, name: '2' },
     ]);
   });
 });

@@ -6,8 +6,11 @@ describe('[treeSort]:', () => {
       {
         id: 1,
         name: '1',
-        children: [{ id: 3, name: '3' }, { id: 2, name: '2' }]
-      }
+        children: [
+          { id: 3, name: '3' },
+          { id: 2, name: '2' },
+        ],
+      },
     ];
     // 1,3,2 => 1,2,3
     const newData = treeSort(
@@ -18,8 +21,11 @@ describe('[treeSort]:', () => {
       {
         id: 1,
         name: '1',
-        children: [{ id: 2, name: '2' }, { id: 3, name: '3' }]
-      }
+        children: [
+          { id: 2, name: '2' },
+          { id: 3, name: '3' },
+        ],
+      },
     ]);
 
     // source is not change
@@ -27,8 +33,11 @@ describe('[treeSort]:', () => {
       {
         id: 1,
         name: '1',
-        children: [{ id: 3, name: '3' }, { id: 2, name: '2' }]
-      }
+        children: [
+          { id: 3, name: '3' },
+          { id: 2, name: '2' },
+        ],
+      },
     ]);
   });
 
@@ -37,12 +46,15 @@ describe('[treeSort]:', () => {
       {
         id: 2,
         name: '2',
-        child: [{ id: 4, name: '4' }, { id: 3, name: '3' }]
+        child: [
+          { id: 4, name: '4' },
+          { id: 3, name: '3' },
+        ],
       },
       {
         id: 1,
-        name: '1'
-      }
+        name: '1',
+      },
     ];
 
     // 2,1,4,3 => 1,2,3,4
@@ -54,13 +66,16 @@ describe('[treeSort]:', () => {
     expect(newData).toEqual([
       {
         id: 1,
-        name: '1'
+        name: '1',
       },
       {
         id: 2,
         name: '2',
-        child: [{ id: 3, name: '3' }, { id: 4, name: '4' }]
-      }
+        child: [
+          { id: 3, name: '3' },
+          { id: 4, name: '4' },
+        ],
+      },
     ]);
 
     // 2,1,4,3 => 2,1,4,3
@@ -73,12 +88,15 @@ describe('[treeSort]:', () => {
       {
         id: 2,
         name: '2',
-        child: [{ id: 4, name: '4' }, { id: 3, name: '3' }]
+        child: [
+          { id: 4, name: '4' },
+          { id: 3, name: '3' },
+        ],
       },
       {
         id: 1,
-        name: '1'
-      }
+        name: '1',
+      },
     ]);
   });
 });

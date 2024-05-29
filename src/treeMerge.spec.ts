@@ -4,7 +4,7 @@ describe('[treeMerge]:', () => {
   it("merge tree node's type is same", () => {
     const treeData = [
       { id: 1, name: '1', type: '1', children: [{ id: 2, name: '2' }] },
-      { id: 3, name: '3', type: '1', children: [{ id: 4, name: '4' }] }
+      { id: 3, name: '3', type: '1', children: [{ id: 4, name: '4' }] },
     ];
     const result = treeMerge(
       treeData,
@@ -15,8 +15,11 @@ describe('[treeMerge]:', () => {
         id: 1,
         name: '1',
         type: '1',
-        children: [{ id: 2, name: '2' }, { id: 4, name: '4' }]
-      }
+        children: [
+          { id: 2, name: '2' },
+          { id: 4, name: '4' },
+        ],
+      },
     ]);
   });
 
@@ -26,14 +29,14 @@ describe('[treeMerge]:', () => {
         id: 1,
         name: '1',
         type: '1',
-        child: [{ id: 2, name: '2', type: '2', child: [{ id: 5, name: '5' }] }]
+        child: [{ id: 2, name: '2', type: '2', child: [{ id: 5, name: '5' }] }],
       },
       {
         id: 3,
         name: '3',
         type: '1',
-        child: [{ id: 4, name: '4', type: '2', child: [{ id: 6, name: '6' }] }]
-      }
+        child: [{ id: 4, name: '4', type: '2', child: [{ id: 6, name: '6' }] }],
+      },
     ];
     const result = treeMerge(
       treeData,
@@ -50,24 +53,27 @@ describe('[treeMerge]:', () => {
             id: 2,
             name: '2',
             type: '2',
-            child: [{ id: 5, name: '5' }, { id: 6, name: '6' }]
-          }
-        ]
-      }
+            child: [
+              { id: 5, name: '5' },
+              { id: 6, name: '6' },
+            ],
+          },
+        ],
+      },
     ]);
     expect(treeData).toEqual([
       {
         id: 1,
         name: '1',
         type: '1',
-        child: [{ id: 2, name: '2', type: '2', child: [{ id: 5, name: '5' }] }]
+        child: [{ id: 2, name: '2', type: '2', child: [{ id: 5, name: '5' }] }],
       },
       {
         id: 3,
         name: '3',
         type: '1',
-        child: [{ id: 4, name: '4', type: '2', child: [{ id: 6, name: '6' }] }]
-      }
+        child: [{ id: 4, name: '4', type: '2', child: [{ id: 6, name: '6' }] }],
+      },
     ]);
   });
 });

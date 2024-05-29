@@ -13,7 +13,7 @@ describe('[treeAppendParent]:', () => {
     const treeData = [{ id: 1, name: '1', child: [{ id: 2, name: '2' }] }];
     const appendParentData = treeAppendParent(treeData, {
       children: 'child',
-      parent: 'p'
+      parent: 'p',
     });
 
     expect(appendParentData[0].p).toBe(null);

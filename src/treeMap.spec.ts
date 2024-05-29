@@ -6,19 +6,19 @@ describe('[treeMap]:', () => {
     const newData = treeMap(treeData, (node) => ({
       id: node.id + 1,
       name: node.name,
-      ...(node.children ? { children: node.children } : {})
+      ...(node.children ? { children: node.children } : {}),
     }));
     expect(newData).toEqual([
       {
         id: 2,
         name: '1',
-        children: [{ id: 3, name: '2' }]
-      }
+        children: [{ id: 3, name: '2' }],
+      },
     ]);
 
     // source is not change
     expect(treeData).toEqual([
-      { id: 1, name: '1', children: [{ id: 2, name: '2' }] }
+      { id: 1, name: '1', children: [{ id: 2, name: '2' }] },
     ]);
   });
 
@@ -29,7 +29,7 @@ describe('[treeMap]:', () => {
       (node) => ({
         id: node.id + 1,
         name: node.name,
-        ...(node.child ? { child: node.child } : {})
+        ...(node.child ? { child: node.child } : {}),
       }),
       { children: 'child' }
     );
@@ -37,13 +37,13 @@ describe('[treeMap]:', () => {
       {
         id: 2,
         name: '1',
-        child: [{ id: 3, name: '2' }]
-      }
+        child: [{ id: 3, name: '2' }],
+      },
     ]);
 
     // source is not change
     expect(treeData).toEqual([
-      { id: 1, name: '1', child: [{ id: 2, name: '2' }] }
+      { id: 1, name: '1', child: [{ id: 2, name: '2' }] },
     ]);
   });
 });

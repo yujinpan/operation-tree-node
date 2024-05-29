@@ -6,7 +6,7 @@ describe('[treeEachParent]:', () => {
     const resultIds = treeCheck(treeData, [1], {
       id: 'id',
       children: 'children',
-      parent: 'parent'
+      parent: 'parent',
     });
     expect(resultIds).toEqual([1, 2]);
   });
@@ -16,7 +16,7 @@ describe('[treeEachParent]:', () => {
     const resultIds = treeCheck(treeData, [2], {
       id: 'id',
       children: 'children',
-      parent: 'parent'
+      parent: 'parent',
     });
     expect(resultIds).toEqual([2, 1]);
   });
@@ -26,13 +26,16 @@ describe('[treeEachParent]:', () => {
       {
         id: 1,
         name: '123',
-        children: [{ id: 2, name: '2' }, { id: 3, name: '3' }]
-      }
+        children: [
+          { id: 2, name: '2' },
+          { id: 3, name: '3' },
+        ],
+      },
     ];
     const resultIds = treeCheck(treeData, [3], {
       id: 'id',
       children: 'children',
-      parent: 'parent'
+      parent: 'parent',
     });
     expect(resultIds).toEqual([3]);
   });
@@ -42,13 +45,16 @@ describe('[treeEachParent]:', () => {
       {
         id: 1,
         name: '123',
-        children: [{ id: 2, name: '2' }, { id: 3, name: '3' }]
-      }
+        children: [
+          { id: 2, name: '2' },
+          { id: 3, name: '3' },
+        ],
+      },
     ];
     const resultIds = treeCheck(treeData, [3, 2], {
       id: 'id',
       children: 'children',
-      parent: 'parent'
+      parent: 'parent',
     });
     expect(resultIds).toEqual([2, 3, 1]);
   });

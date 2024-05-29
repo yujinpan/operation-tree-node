@@ -6,8 +6,8 @@ describe('[treeEachParent]:', () => {
       id: 1,
       name: '123',
       parent: null,
-      children: [{ id: 2, name: '2', parent: null, children: [] }]
-    }
+      children: [{ id: 2, name: '2', parent: null, children: [] }],
+    },
   ];
   treeData[0].children[0].parent = treeData[0];
 
