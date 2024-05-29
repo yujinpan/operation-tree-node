@@ -5,8 +5,9 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "lib/cjs/index.js",
+  "module": "lib/es/index.js",
+  "types": "types/index.d.ts",
   "keywords": [
     "operation-tree",
     "tree-node",
@@ -18,45 +19,33 @@
     "README.md"
   ],
   "scripts": {
-    "publish:beta": "npm version prerelease --preid=beta && npm publish",
-    "publish:patch": "npm version patch && npm publish",
-    "publish:minor": "npm version minor && npm publish",
+    "publish:beta": "release-ops beta",
+    "publish:patch": "release-ops patch",
     "version": "npm run build",
     "postversion": "git push --all && git push --tags",
     "build": "cross-env NODE_ENV=production rollupx",
-    "test": "karma start test/unit/karma.config.js",
-    "lint": "eslint --fix './**/*'"
+    "test": "jest"
   },
   "dependencies": {
     "core-js": "^3.x"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-typescript": "^7.13.0",
-    "@types/jasmine": "^3.4.4",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
-    "babel-loader": "^8.0.6",
-    "cross-env": "^5.2.0",
-    "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "jasmine-core": "^3.5.0",
-    "karma": "^4.4.1",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-jasmine": "^2.0.1",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^4.0.2",
+    "jest": "^29.7.0",
     "prettier": "2.8.3",
-    "rollupx": "^2.0.26",
-    "typescript": "^4.9.4",
-    "webpack": "^4.41.2"
+    "release-ops": "^1.0.1",
+    "rollup": "^4.18.0",
+    "rollupx": "^3.1.12",
+    "ts-jest": "^29.1.4",
+    "typescript": "^4.9.4"
   },
   "browserslist": [
     "> 1%",
-    "last 2 versions",
-    "ie 9"
+    "last 2 versions"
   ],
   "bugs": {
     "url": "https://github.com/yujinpan/operation-tree-node/issues"

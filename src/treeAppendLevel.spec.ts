@@ -1,4 +1,4 @@
-import treeAppendLevel from '../../../src/treeAppendLevel';
+import treeAppendLevel from './treeAppendLevel';
 
 describe('[treeAppendLevel]:', () => {
   it('should append level', () => {

@@ -5,12 +5,15 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "resolveJsonModule": true,
+    "types": ["ts-jest/globals"]
   },
   "include": [
     "./global.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx",
-    "./src/**/*.vue"
+    "./src/**/*.vue",
+    "./src/tsconfig.json"
   ]
 }

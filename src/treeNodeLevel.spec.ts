@@ -1,5 +1,5 @@
-import treeAppendParent from '../../../src/treeAppendParent';
-import treeNodeLevel from '../../../src/treeNodeLevel';
+import treeAppendParent from './treeAppendParent';
+import treeNodeLevel from './treeNodeLevel';
 
 describe('[treeNodeLevel]:', () => {
   it('should get tree node level', () => {

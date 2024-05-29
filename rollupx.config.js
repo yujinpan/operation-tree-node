@@ -6,7 +6,23 @@ module.exports = {
     ' * Released under the MIT License.\n' +
     ' */\n',
   inputFiles: ['**/*.ts'],
-  outputDir: 'dist',
-  typesOutputDir: 'dist',
+  outputDir: 'lib',
   singleFile: false,
+
+  formats: [
+    {
+      format: 'es',
+      inputFiles: ['**/*'],
+      outputDir: 'lib/es',
+      outputFile: '[name][ext]',
+    },
+    {
+      format: 'cjs',
+      inputFiles: ['**/*'],
+      outputDir: 'lib/cjs',
+      outputFile: '[name][ext]',
+    },
+  ],
+
+  typesOutputDir: 'types',
 };

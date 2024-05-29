@@ -1,4 +1,4 @@
-import treeAppendParent from '../../../src/treeAppendParent';
+import treeAppendParent from './treeAppendParent';
 
 describe('[treeAppendParent]:', () => {
   it('should append parent property', () => {
